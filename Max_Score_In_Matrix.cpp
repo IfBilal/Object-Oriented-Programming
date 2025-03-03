@@ -28,7 +28,7 @@ int MaxScore(int** arr, int rows, int cols, int i = 0, int j = 0) // finding max
     int path[2];    // at every block there are only two moves possible either left or right and down so array of 2 length 
 	    if (i%2==0)   //even row check
 		{
-    *path=MaxScore(arr,rows,cols,i,j+1);   //Move right
+    *path=MaxScore(arr,rows,cols,i,j+1);   //Move right  
     *(path+1)=MaxScore(arr,rows,cols,i+1,j); //move down
     	} 
 		else   //odd row
