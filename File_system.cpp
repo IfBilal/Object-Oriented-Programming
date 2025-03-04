@@ -8,9 +8,15 @@ class File{
          void getinfo()
    		{
         cout<<"Enter name of file : ";
-        cin>>F_name;
+        cin.ignore();
+		getline(cin,F_name);
         cout<<"Enter size of file in KB : ";
         cin>>F_size;
+        while(F_size<=0)
+        {
+        	cout<<"\nInvalid\nEnter size of file in KB : ";
+        	cin>>F_size;
+		}
         cout<<"Enter extension of file : ";
         cin>>extension;
     	}
@@ -88,7 +94,8 @@ void Run()
     cout<<"-----------------------------Welcome to File System--------------------------------- ";
     Folder f1;
     cout<<"\nEnter Folder name : ";
-    cin>>f1.name;
+    cin.ignore();
+    getline(cin,f1.name);
     while(true)
     {
         int ask=0;

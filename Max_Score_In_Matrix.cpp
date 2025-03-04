@@ -14,32 +14,33 @@ void GenerateMatrix(int **arr,int row,int col)  //adding random values to matrix
 	{
 		for(int j=0;j<col;j++)
 		{
-			if(i==0 && j==0)
-			*(*(arr+i)+j)=rand()%2;
-			else
 			*(*(arr+i)+j)=rand()%3-1;
 		}
 	}
 }
 int MaxScore(int** arr, int rows, int cols, int i = 0, int j = 0) // finding maximum score
 {
-    if (i>=rows||j>=cols||j<0||i<0||*(*(arr+i)+j)==-1) //base case so it doesnt make an invalid move or go out of bound
+    if (i>=rows||j>=cols||j<0 || *(*(arr+i)+j)==-1) //base case so it doesnt make an invalid move or go out of bound
     return 0;
-    int path[2];    // at every block there are only two moves possible either left or right and down so array of 2 length 
+    int move[2]={0,0};    // at every block there are only two moves possible either left or right and down so array of 2 length 
 	    if (i%2==0)   //even row check
 		{
-    *path=MaxScore(arr,rows,cols,i,j+1);   //Move right  
-    *(path+1)=MaxScore(arr,rows,cols,i+1,j); //move down
+			if(  j<cols-1 && *(*(arr+i)+j+1)!=-1  )  //out of bounds and next element check
+    			*move=MaxScore(arr,rows,cols,i,j+1);   //Move right
+    		if(   i<rows-1 && *(*(arr+i+1)+j)!=-1 )	 //out of bound and next element check
+				*(move+1)=MaxScore(arr,rows,cols,i+1,j); //move down
     	} 
 		else   //odd row
 		{
-    *path=MaxScore(arr,rows,cols,i,j-1);  //move left
-    *(path+1)=MaxScore(arr,rows,cols,i+1,j); //move down
+			if( j>0 && *(*(arr+i)+j-1)!=-1 )   //out of bound and next element check
+    			*move=MaxScore(arr,rows,cols,i,j-1);  //move left
+    		if(  i<rows-1 &&  *(*(arr+i+1)+j)!=-1 )	//out of bound and next element check
+				*(move+1)=MaxScore(arr,rows,cols,i+1,j); //move down
     	}
-    if(*path>*(path+1))  // at every block there are two paths possible so it checks and returns the path with highest score
-    	return *(*(arr+i)+j)+*path;
+    if(*move>*(move+1))  // at every block there are two moves possible so it checks and returns the move with highest score
+    	return *(*(arr+i)+j)+*move;
 	else
-		return *(*(arr+i)+j)+*(path+1);
+		return *(*(arr+i)+j)+*(move+1);
 }
 int main()
 {
