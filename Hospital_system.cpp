@@ -1,3 +1,6 @@
+	//Sometimes when program stops, wait due to sleep function or Enter again due to presence of cin.ignore()
+
+
 #include<iostream>
 #include<windows.h>
 #include<iomanip>
@@ -45,7 +48,7 @@ Doctor &operator=(const Doctor &other)
         }
     }
     return *this;
-}
+ }
 };
 
 
@@ -86,6 +89,11 @@ Doctor* D= new Doctor [capacity];
 		getline(cin,D[size].dept);
 		cout<<"Enter age of doctor : ";
 		cin>>D[size].age;
+		while(D[size].age<=0)
+		{
+			cout<<"\nInvalid\nEnter age of doctor : ";
+			cin>>D[size].age;
+		}
 		size++;
 	}
 	void remove()
@@ -148,6 +156,11 @@ Doctor* D= new Doctor [capacity];
 		getline(cin,D[i].P[D[i].size].disease);
 		cout<<"Enter age of patient : ";
 		cin>>D[i].P[D[i].size].age;
+		while(D[i].P[D[i].size].age<=0)
+		{
+		cout<<"\nInvalid\nEnter age of patient : ";
+		cin>>D[i].P[D[i].size].age;	
+		}
 		D[i].size++;
 	}
 	
@@ -275,7 +288,7 @@ void Run()
 		if(choice==3)
 		{
 			
-				H.remove();	
+			H.remove();	
 		}
 		if(choice==4)
 		{
